@@ -1,5 +1,5 @@
 Function VlookupEx(lookupVal,Lrange As Range,Offset)
-
+  '# comment
   dim cellColl as Range
 
   VlookupEx=0
