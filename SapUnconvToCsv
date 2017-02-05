@@ -1,0 +1,70 @@
+Sub CleanUnconvSAP(dir, fname, Optional header As Boolean, Optional headersample As String, Optional delim As String, Optional delimRepl As String)
+    
+    If delim = "" Then delim = "|"    
+    If delimRepl = "" Then delimRepl = ","        
+    
+    Dim out As String        
+    
+    ff = FileSystem.FreeFile    
+    
+    Open dir & fname For Input As ff        
+    
+    Do While Not EOF(ff)
+    
+      Line Input #ff, fline
+      
+      addline = False
+      '// Adline if starts with delimiter but not like header sample        
+      If Not header And Mid(fline, 1, 1) = delim And Mid(fline, 1, Len(headersample)) <> headersample Then addline = True
+      '// Adline if starts with delimiter        
+      If header And Mid(fline, 1, 1) = delim Then addline = True
+      
+      If addline Then
+        '//ensure no new delimiters in file to create column allocation errors
+        fline = Replace(fline, delimRepl, "")
+        '//remove first delimiter
+        fline = Mid(fline, 2, Len(fline) - 1)
+        '//change delimiter
+        fline = Trim(Replace(fline, delim, delimRepl))
+        flineTemp = ""
+        '//Trim ends
+        For N = Len(fline) To 1 Step -1
+          If Mid(fline, N, 1) = delimRepl Then
+            StartCut = True
+            flineTemp = flineTemp & delimRepl
+          End If                        
+        If Not StartCut Then 
+          flineTemp = flineTemp & Mid(fline, N, 1)
+          If StartCut = True And Mid(fline, N, 1) <> " " And Mid(fline, N, 1) <> delimRepl Then
+            flineTemp = flineTemp & Mid(fline, N, 1)
+            StartCut = False
+          End If
+        Next
+        fline = StrReverse(flineTemp)
+        flineTemp = ""
+        For N = 1 To Len(fline)
+          If Mid(fline, N, 1) = delimRepl Then
+            StartCut = True
+            flineTemp = flineTemp & delimRepl
+          End If
+          If Not StartCut Then flineTemp = flineTemp & Mid(fline, N, 1)
+          If StartCut = True And Mid(fline, N, 1) <> " " And Mid(fline, N, 1) <> delimRepl Then
+            flineTemp = flineTemp & Mid(fline, N, 1)
+            StartCut = False
+          End If
+          Next 
+          fline = flineTemp
+          '//write to output string with end of line attached
+          out = out & fline & vbNewLine
+          End If
+          Loop
+          
+          Close ff
+          
+          ff = FileSystem.FreeFile
+          
+          Open dir & "cleaned_" & fname For Output As ff
+          Print #ff, out        
+          Close ff    
+          
+          End Sub
