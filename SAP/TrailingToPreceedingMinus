@@ -1,0 +1,7 @@
+Function TrailingToPreceedingMinus(stIn As String) As Double
+    stIn = Trim(stIn)
+    If Right(stIn, 1) = "-" Then
+      stIn = "-" & Mid(stIn, 1, Len(stIn) - 1)
+    End If
+    TrailingToPreceedingMinus = CDbl(stIn)
+End Function
