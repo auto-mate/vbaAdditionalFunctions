@@ -1,1 +1,47 @@
-Option Compare DatabaseOption ExplicitDeclare Function GlobalUnlock Lib "kernel32" (ByVal hMem As Long) As LongDeclare Function GlobalLock Lib "kernel32" (ByVal hMem As Long) As LongDeclare Function GlobalAlloc Lib "kernel32" (ByVal wFlags As Long, ByVal dwBytes As Long) As LongDeclare Function CloseClipboard Lib "User32" () As LongDeclare Function OpenClipboard Lib "User32" (ByVal hwnd As Long) As LongDeclare Function EmptyClipboard Lib "User32" () As LongDeclare Function lstrcpy Lib "kernel32" (ByVal lpString1 As Any, ByVal lpString2 As Any) As LongDeclare Function SetClipboardData Lib "User32" (ByVal wFormat As Long, ByVal hMem As Long) As LongPublic Const GHND = &H42Public Const CF_TEXT = 1Public Const MAXSIZE = 4096Function ClipBoard_SetData(MyString As String)                  Dim hGlobalMemory As Long, lpGlobalMemory As Long         Dim hClipMemory As Long, X As Long         ' Allocate movable global memory.         '-------------------------------------------         hGlobalMemory = GlobalAlloc(GHND, Len(MyString) + 1)         ' Lock the block to get a far pointer         ' to this memory.         lpGlobalMemory = GlobalLock(hGlobalMemory)         ' Copy the string to this global memory.         lpGlobalMemory = lstrcpy(lpGlobalMemory, MyString)         ' Unlock the memory.         If GlobalUnlock(hGlobalMemory) <> 0 Then            MsgBox "Could not unlock memory location. Copy aborted."            GoTo ExitHere         End If         ' Open the Clipboard to copy data to.         If OpenClipboard(0&) = 0 Then            MsgBox "Could not open the Clipboard. Copy aborted."            Exit Function         End If         ' Clear the Clipboard.         X = EmptyClipboard()         ' Copy the data to the Clipboard.         hClipMemory = SetClipboardData(CF_TEXT, hGlobalMemory)ExitHere:         If CloseClipboard() = 0 Then            MsgBox "Could not close Clipboard."         End IfEnd FunctionPrivate Sub CopyToClipboard_Click()    Call ClipBoard_SetData("Hello" & vbNewLine & "You" & vbNewLine)End Sub
+Option Compare DatabaseOption ExplicitDeclare Function GlobalUnlock Lib "kernel32" (ByVal hMem As Long) As Long
+Declare Function GlobalLock Lib "kernel32" (ByVal hMem As Long) As Long
+Declare Function GlobalAlloc Lib "kernel32" (ByVal wFlags As Long, ByVal dwBytes As Long) As Long
+Declare Function CloseClipboard Lib "User32" () As Long
+Declare Function OpenClipboard Lib "User32" (ByVal hwnd As Long) As Long
+Declare Function EmptyClipboard Lib "User32" () As Long
+Declare Function lstrcpy Lib "kernel32" (ByVal lpString1 As Any, ByVal lpString2 As Any) As Long
+Declare Function SetClipboardData Lib "User32" (ByVal wFormat As Long, ByVal hMem As Long) As Long
+
+Public Const GHND = &H42
+Public Const CF_TEXT = 1
+Public Const MAXSIZE = 4096
+
+Function ClipBoard_SetData(MyString As String)
+  Dim hGlobalMemory As Long, lpGlobalMemory As Long         
+  Dim hClipMemory As Long, X As Long         
+  ' Allocate movable global memory.
+  '------------------------------------------- 
+  hGlobalMemory = GlobalAlloc(GHND, Len(MyString) + 1)
+  ' Lock the block to get a far pointer
+  ' to this memory.
+  lpGlobalMemory = GlobalLock(hGlobalMemory)
+  ' Copy the string to this global memory.
+  lpGlobalMemory = lstrcpy(lpGlobalMemory, MyString)
+  ' Unlock the memory.         
+  If GlobalUnlock(hGlobalMemory) <> 0 Then
+    MsgBox "Could not unlock memory location. Copy aborted." 
+    GoTo ExitHere
+  End If
+  ' Open the Clipboard to copy data to.
+  If OpenClipboard(0&) = 0 Then
+    MsgBox "Could not open the Clipboard. Copy aborted."
+    Exit Function
+  End If
+  ' Clear the Clipboard.
+  X = EmptyClipboard()
+  ' Copy the data to the Clipboard.
+  hClipMemory = SetClipboardData(CF_TEXT, hGlobalMemory)
+ExitHere:
+  If CloseClipboard() = 0 Then
+    MsgBox "Could not close Clipboard."
+  End If
+  End Function
+  
+  Private Sub CopyToClipboard_Click()    
+    Call ClipBoard_SetData("Hello" & vbNewLine & "You" & vbNewLine)
+  End Sub
