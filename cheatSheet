@@ -1,5 +1,7 @@
-Oct Conversion &O10 = 8
-Hex Conversion &H10 = 16
+VB
+  Oct Conversion &O10 = 8
+  Hex Conversion &H10 = 16
 API Help
   AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
-  
+CMD
+  & (Runs multiple commands eg "DIR & PAUSE") 
