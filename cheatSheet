@@ -20,5 +20,5 @@ Common Classes
   Wscript.Shell
   Dim X as New ...  
   ================
-  InternetExplorer
+  InternetExplorer (Turn Off Enable Protected Mode if dissconnection!)
   
