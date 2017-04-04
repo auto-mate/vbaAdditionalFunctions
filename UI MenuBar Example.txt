@@ -1,0 +1,78 @@
+
+Sub LoadUI()
+  On Error Resume Next
+  ThisWorkbook.VBProject.References.AddFromFile "C:\windows\system32\UIAutomationCore.dll"
+  On Error GoTo 0
+End Sub
+
+Sub Wait()
+  mtimer = Timer + 0.5
+  Do While mtimer > Timer: DoEvents: Loop
+End Sub
+
+Sub SelectCalcMenuItem()
+
+ Dim Auto As New CUIAutomation
+ Dim Dsktp As IUIAutomationElement
+ Dim DtChildNodes As IUIAutomationElementArray
+ Dim MenuList As IUIAutomationElementArray
+ Dim SubMenuList As IUIAutomationElementArray
+ Dim INV As IUIAutomationInvokePattern
+ Dim EXP As IUIAutomationExpandCollapsePattern
+  
+ '// Get Desktop Element
+ '//####################
+ Set Dsktp = Auto.GetRootElement
+ 
+ '// Get Desktops Children
+ '//######################
+ Set DtChildNodes = Dsktp.FindAll(TreeScope_Children, Auto.CreateTrueCondition)
+ 
+ '// Loop through Desktops Children to find Calc
+ '//############################################
+ For N = 0 To (DtChildNodes.Length - 1)
+   If InStr(1, DtChildNodes.GetElement(N).CurrentName, "Calc") <> 0 Then Exit For
+ Next
+ 
+ '//Get Menu Items
+ '//#############
+  Set MenuList = DtChildNodes.GetElement(N).FindAll(TreeScope_Descendants, Auto.CreatePropertyCondition(UIA_PropertyIds.UIA_ControlTypePropertyId, 50011))
+      
+'//Loop through Top Menu List
+'//##########################
+  For k = 0 To (MenuList.Length - 1)
+    '//Find Help Item
+    '//##############
+    If MenuList.GetElement(k).CurrentName = "Help" Then
+      '//Expand Found Section
+      '//####################
+       Set EXP = MenuList.GetElement(k).GetCurrentPattern(UIA_PatternIds.UIA_ExpandCollapsePatternId)
+       EXP.Expand
+       '//Get menu items post Expansion
+       '//#############################
+        Set SubMenuList = DtChildNodes.GetElement(N).FindAll(TreeScope_Subtree, Auto.CreatePropertyCondition(UIA_PropertyIds.UIA_LocalizedControlTypePropertyId, "menu item"))
+        '//Loop through Help Menu List to find About
+        '//#########################################
+        For l = 0 To (MenuList.Length - 1)
+          If SubMenuList.GetElement(l).CurrentName = "About Calculator" Then
+           '//Obtain Invoke Pattern for About
+           '//###############################
+            Set INV = SubMenuList.GetElement(l).GetCurrentPattern(UIA_PatternIds.UIA_InvokePatternId)
+          End If
+        Next
+    End If
+ Next
+   
+ Wait
+   
+ INV.Invoke
+
+ Set INV = Nothing: Set EXP = Nothing
+ Set SubMenuList = Nothing: Set MenuList = Nothing
+ Set DtChildNodes = Nothing
+ Set Dsktp = Nothing
+ Set Auto = Nothing
+  
+End Sub
+
+
