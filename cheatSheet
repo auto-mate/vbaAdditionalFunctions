@@ -5,6 +5,23 @@ VB
   API in VB Help
   ==============
   AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
+  UI in VBA
+  =========
+  Add Ref 
+    C:\windows\system32\UIAutomationCore.dll
+  Create Automation Object 
+    Dim UIObj as New CUIAutomation
+  Get Root Element
+    Dim Dsktp As IUIAutomationElement : Set Dsktp = UIObj.GetRootElement 
+  Get All Children In Array 
+    Dim DtChildNodes As IUIAutomationElementArray : Set DtChildNodes = Dsktp.FindAll(TreeScope_Children, Auto.CreateTrueCondition)
+  Get an Invoke Procedure and Use 
+    Dim INV As IUIAutomationInvokePattern : Set INV = obSubMenuList.GetElement(n).GetCurrentPattern(UIA_PatternIds.UIA_InvokePatternId) : INV.Invoke
+  Get an Expand/Collapse Procedure and Use
+    Dim EXP As IUIAutomationExpandCollapsePattern : Set EXP = obMenuList.GetElement(n).GetCurrentPattern(UIA_PatternIds.UIA_ExpandCollapsePatternId):EXP.Expand
+  Customised FindAll (e.g UIA_LocalizedControlTypePropertyId = "menu item")
+   Dim SubMenuList As IUIAutomationElementArray
+   Set SubMenuList = DtChildNodes.GetElement(n).FindAll(TreeScope_Subtree, Auto.CreatePropertyCondition(UIA_PropertyIds.UIA_LocalizedControlTypePropertyId, "menu item"))    
 CMD
 ===
   & (Runs multiple commands eg "DIR & PAUSE") 
