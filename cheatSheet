@@ -18,14 +18,14 @@ VB
   #Get All Children In Array# 
     Dim [DtChildNodes] As IUIAutomationElementArray : Set [DtChildNodes] = [Dsktp].FindAll(TreeScope_Children, Auto.CreateTrueCondition)
   #Get a Value Procedure (Text and Number) and Use# 
-  Dim [VAL] As IUIAutomationValuePattern : Set [VAL] = [DialogNodes].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_ValuePatternId) :[VAL].SetValue [MyFilename]
+    Dim [VAL] As IUIAutomationValuePattern : Set [VAL] = [DialogNodes].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_ValuePatternId) :[VAL].SetValue [MyFilename]
   #Get an Invoke Procedure and Use# 
     Dim [INV] As IUIAutomationInvokePattern : Set [INV] = [obSubMenuList].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_InvokePatternId) : [INV].Invoke
   #Get an Expand/Collapse Procedure and Use#
     Dim [EXP] As IUIAutomationExpandCollapsePattern : Set [EXP] = [obMenuList].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_ExpandCollapsePatternId):[EXP].Expand
   #Customised FindAll (e.g UIA_LocalizedControlTypePropertyId = "menu item")#
    Dim [SubMenuList] As IUIAutomationElementArray
-   Set [SubMenuList] = [DtChildNodes].GetElement(n).FindAll(TreeScope_Subtree, Auto.CreatePropertyCondition(UIA_PropertyIds.UIA_LocalizedControlTypePropertyId, "menu item"))    
+   Set [SubMenuList] = [DtChildNodes].GetElement([n]).FindAll(TreeScope_Subtree, Auto.CreatePropertyCondition(UIA_PropertyIds.UIA_LocalizedControlTypePropertyId, "menu item"))    
 
 CMD
 ===
