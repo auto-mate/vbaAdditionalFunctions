@@ -45,3 +45,6 @@ Common Classes
   ================
     InternetExplorer (Turn Off Enable Protected Mode if dissconnection!)
   
+Javascript
+==========
+  document.iframeResult.window.myFunction() [runs myFunction from browser console when its in an iframe called "iframeResult"]
