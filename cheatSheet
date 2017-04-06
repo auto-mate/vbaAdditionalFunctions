@@ -27,6 +27,65 @@ VB
    Dim [SubMenuList] As IUIAutomationElementArray
    Set [SubMenuList] = [DtChildNodes].GetElement([n]).FindAll(TreeScope_Subtree, Auto.CreatePropertyCondition(UIA_PropertyIds.UIA_LocalizedControlTypePropertyId, "menu item"))    
 
+  SAP in VB
+  =========
+    
+  API in VB Help
+  ==============
+  AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
+  
+  UI in VBA [nameOfYourChoice]
+  =========
+  #Add Ref# 
+    C:\windows\system32\UIAutomationCore.dll
+  #Create Automation Object# 
+    Dim [UIObj] as New CUIAutomation
+  #Get Root Element#
+    Dim [Dsktp] As IUIAutomationElement : Set [Dsktp] = [UIObj].GetRootElement 
+  #Get All Children In Array# 
+    Dim [DtChildNodes] As IUIAutomationElementArray : Set [DtChildNodes] = [Dsktp].FindAll(TreeScope_Children, [UIObj].CreateTrueCondition)
+  #Get a Value Procedure (Text and Number) and Use# 
+    Dim [VAL] As IUIAutomationValuePattern : Set [VAL] = [DialogNodes].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_ValuePatternId) :[VAL].SetValue [MyFilename]
+  #Get an Invoke Procedure and Use# 
+    Dim [INV] As IUIAutomationInvokePattern : Set [INV] = [obSubMenuList].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_InvokePatternId) : [INV].Invoke
+  #Get an Expand/Collapse Procedure and Use#
+    Dim [EXP] As IUIAutomationExpandCollapsePattern : Set [EXP] = [obMenuList].GetElement([n]).GetCurrentPattern(UIA_PatternIds.UIA_ExpandCollapsePatternId):[EXP].Expand
+  #Customised FindAll (e.g UIA_LocalizedControlTypePropertyId = "menu item")#
+   Dim [SubMenuList] As IUIAutomationElementArray
+   Set [SubMenuList] = [DtChildNodes].GetElement([n]).FindAll(TreeScope_Subtree, [UIObj].CreatePropertyCondition(UIA_PropertyIds.UIA_LocalizedControlTypePropertyId, "menu item"))    
+  
+  SAP in VB
+  =========
+  #Grab session already opened
+    Set SapApplication = SapGuiAuto.GetScriptingEngine  
+    Set Connection = SapApplication.OpenConnection("Your Systems Name", True)  
+    Set sessionN = Connection.Children(0)
+  #Find Element
+     sessionN.findById("ID").SelectAfunction
+  #General Functions
+    .Maximize
+    .pressToolbarButton "&MB_VARIANT"
+    .pressToolbarContextButton "&MB_EXPORT"
+    .SelectContextMenuItem "&PC"
+    .SetFocus
+    .Select
+    .SendVkey
+  #Check Box Functions
+    .Selected=True
+  #List Box Functions
+    .Key="n"
+  #Text Box Functions
+    .text
+  #Button Functions
+    .press
+  #ShellGrid Functions
+    .visiblerowcount 
+    .getcellvalue(n, "COLUMN NAME") 
+    .currentCellRow = n
+    .selectedRows = "" & n & ""
+    .doubleClickCurrentCell
+    .ClickCurrentCell
+    
 CMD
 ===
   & (Runs multiple commands eg "DIR & PAUSE") 
