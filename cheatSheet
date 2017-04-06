@@ -6,9 +6,10 @@ VB
   API in VB Help
   ==============
   #General
-  AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
+    AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
   #Sleep
-  Private Declare Sub Sleep Lib "kernel32" Alias "Sleep" (ByVal dwMilliseconds As Long)
+    Private Declare Sub Sleep Lib "kernel32" Alias "Sleep" (ByVal dwMilliseconds As Long)
+  
   UI in VBA [nameOfYourChoice]
   =========
   #Add Ref# 
