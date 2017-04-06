@@ -9,7 +9,23 @@ VB
     AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
   #Sleep
     Private Declare Sub Sleep Lib "kernel32" Alias "Sleep" (ByVal dwMilliseconds As Long)
-  
+
+  IE Browser Via VBA
+  ==================
+  #Run Javascript in IE browser [Existing and Injected]
+    Sub OpenBrowserAndRunInjectedJavaScript()  
+      'Add Refs Internet Controls IEFrame.dll AND HTML Object Library mshtml.tlb  
+      '-------------------------------------------------------------------------  
+      Dim ie As New InternetExplorer, doc As HTMLDocument: ie.Visible = True: ie.Navigate2 "www.bbc.co.uk"  
+      Do While ie.readyState <> READYSTATE_COMPLETE: DoEvents: Loop: Set doc = ie.document  
+      doc.parentWindow.execScript "alert('OK');", "Javascript"  
+      'Run Known Function In a Frame  
+      '-----------------------------  
+      ie.Navigate2 "https://www.w3schools.com/js/tryit.asp?filename=tryjs_whereto_external": Do While ie.readyState <> READYSTATE_COMPLETE: DoEvents: Loop: Set doc = ie.document  
+      doc.frames("iframeResult").execScript "myFunction();", "Javascript": Stop  
+      ie.Quit
+    End Sub  
+    
   UI in VBA [nameOfYourChoice]
   =========
   #Add Ref# 
