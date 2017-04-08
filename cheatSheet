@@ -2,7 +2,7 @@ VB
 ==
   Oct Conversion &O10 = 8
   Hex Conversion &H10 = 16
-  
+  Dim obj As Object: Set obj = CreateObject("Wscript.Shell"): obj.Run "cmd", , True '[waits for cmd to be closed]
   API in VB Help
   ==============
   #General
