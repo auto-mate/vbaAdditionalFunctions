@@ -1,8 +1,13 @@
 VB
 ==
-  Oct Conversion &O10 = 8
-  Hex Conversion &H10 = 16
-  Dim obj As Object: Set obj = CreateObject("Wscript.Shell"): obj.Run "cmd", , True '[waits for cmd to be closed]
+  #Conversions
+    Oct Conversion &O10 = 8
+    Hex Conversion &H10 = 16
+  #Run external program and wait
+    Dim obj As Object: Set obj = CreateObject("Wscript.Shell"): obj.Run "cmd /C dir & pause", , True
+  #Deskop Windows Re Tile  
+   Dim x As New Shell32.Shell: x.CascadeWindows: x.TileHorizontally: x.TileVertically: x.ToggleDesktop:x.ShutdownWindows   
+   
   API in VB Help
   ==============
   #General
@@ -77,10 +82,7 @@ VB
     .selectedRows = "" & n & ""
     .doubleClickCurrentCell
     .ClickCurrentCell
-  Shell32 in VBA
-  ==============
-  Dim x As New Shell32.Shell: x.CascadeWindows: x.TileHorizontally: x.TileVertically: x.ToggleDesktop:x.ShutdownWindows
-  
+ 
 CMD
 ===
   & (Runs multiple commands eg "DIR & PAUSE") 
