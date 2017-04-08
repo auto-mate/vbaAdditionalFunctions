@@ -79,7 +79,7 @@ VB
     .ClickCurrentCell
   Shell32 in VBA
   ==============
-  Dim x As New Shell32.Shell: x.CascadeWindows: x.TileHorizontally: x.TileVertically: x.ToggleDesktop
+  Dim x As New Shell32.Shell: x.CascadeWindows: x.TileHorizontally: x.TileVertically: x.ToggleDesktop:x.ShutdownWindows
   
 CMD
 ===
