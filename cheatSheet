@@ -9,7 +9,10 @@ VB
     Dim obj As Object: Set obj = CreateObject("Wscript.Shell"): obj.Run "cmd /C dir & pause", , True
   #Deskop Windows Re Tile  
    Dim x As New Shell32.Shell: x.CascadeWindows: x.TileHorizontally: x.TileVertically: x.ToggleDesktop:x.ShutdownWindows   
-   
+  #Formats
+    format(now(),"\Quarter Q DDDD-DDD-DD-MMMM-MMM-MM-M-YYYY HH:MM:SS \Week WW")=Quarter 2 Monday-Mon-10-April-Apr-04-4-2017 09:46:23 Week 15
+    format(1234567.20,"#,###,.00")=1234.57 ' ## NB Use Chr(34) Not " when using in code
+  
   API in VB Help
   ==============
   #General
