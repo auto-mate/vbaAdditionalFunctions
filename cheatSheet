@@ -104,6 +104,20 @@ VB
 CMD
 ===
   & (Runs multiple commands eg "DIR & PAUSE") 
+  CALL FilePath [Optional parameters]
+  IF KEYWORDS NOT EQU/NEQ/LSS,LEQ,GTR,GEQ,EXIST,ERRORLEVEL [Layout must be as below]
+  IF EXIST filename. (  
+    del filename.
+  ) ELSE (
+    echo filename. missing.
+  )
+  FINDSTR /R H[t-z] file.txt [Regex Find e.g. "([0-9]{5}\s[0-9]{6}|^P|[^a-z,A-Z,\s,0-9])"  finds 1. Numbers as 99999 999999 OR P at the begining of a line OR not a-zA-Z0-9or space ie "".,etc ]
+  FOR /L %N (1,1,5) DO @ECHO %N REM(START,STEP.STOP)
+  FOR %I in ("*") DO @ECHO %I
+  FOR /F "eol= tokens=1,2,3* delims=, " %i in (myfile.csv) do @echo Field1=%i Field2=%j Field3+=%k
+  GOTO [:Label]
+  SET
+  SORT filename.csv
 
 Common Classes
 ==============
