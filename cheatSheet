@@ -105,4 +105,10 @@ Common Classes
   
 Javascript
 ==========
+#Run Javascript that exists in a named frame  
   document.iframeResult.window.myFunction() [runs myFunction from browser console when its in an iframe called "iframeResult"]
+#Get Recordset from MSAccess as Javascript Array For File "C:\\FolderA\\FolderB\\..\\...DatabaseName.accdb" And PASSWORD='password' [IE Only]  
+  function ReadAccess(sql) {var adoConn = new ActiveXObject("ADODB.Connection");var adoRS = new ActiveXObject("ADODB.Recordset");    
+  try {adoConn.Open("Provider=Microsoft.ACE.OLEDB.12.0;Data Source='C:\\FolderA\\FolderB..\\..\\DatabaseName.accdb';Jet OLEDB:Database Password='password'");}  
+  catch(err) {alert(err + "Login Error");} adoRS.Open(sql, adoConn, 1, 3); var fc = adoRS.Fields.Count; ds=[]; while (adoRS.EOF==false)    
+  {rs=[]; for (i=0;i<fc;i++) {rc=adoRS.Fields(i).value.toString();rs.push(rc);} ds.push(rs); adoRS.moveNext();} adoRS.Close(); adoConn.Close(); return ds;}  
