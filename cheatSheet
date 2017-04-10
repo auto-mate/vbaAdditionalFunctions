@@ -32,6 +32,7 @@ VB
     Declare Function EnumChildWindows Lib "user32" (ByVal hWndParent As Long, ByVal lpEnumFunc As Long, ByVal lParam As Long) As Long    
   #Useful APIs
     GetPixel,SetPixel,GetWindow,FindWindow,GetKeyState,GetWindowRect,GetWindowText,GetWindowTextLength,GetInputState,SetClipboardData,keyb_event,MessageBox,MoveWindow,OpenClipboard,PathFileExists,PostMessage,PrintWindow,PutFocus,WindowFromPoint
+  
   IE Browser Via VBA
   ==================
   #Run Javascript in IE browser [Existing and Injected]
