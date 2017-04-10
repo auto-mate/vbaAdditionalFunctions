@@ -19,7 +19,19 @@ VB
     AddressOf procedurename ( causes the address of the procedure it precedes to be passed to an API procedure that expects a function pointer )
   #Sleep
     Private Declare Sub Sleep Lib "kernel32" Alias "Sleep" (ByVal dwMilliseconds As Long)
-
+  #mouse_event
+    Const MOUSEEVENTF_LEFTDOWN = &H2Const MOUSEEVENTF_LEFTUP = &H4Const MOUSEEVENTF_MIDDLEDOWN = &H20Const MOUSEEVENTF_MIDDLEUP = &H40Const MOUSEEVENTF_MOVE = &H1Const MOUSEEVENTF_ABSOLUTE = &H8000Const MOUSEEVENTF_RIGHTDOWN = &H8Const MOUSEEVENTF_RIGHTUP = &H10  
+    Declare Sub mouse_event Lib "user32" Alias "mouse_event" (ByVal dwFlags As Long, ByVal dx As Long, ByVal dy As Long, ByVal cButtons As Long, ByVal dwExtraInfo As Long)
+  #GetAsyncKeyState
+    Declare Function GetAsyncKeyState Lib "user32" Alias "GetAsyncKeyState" (ByVal vKey As Long) As Integer
+  #SendMessage
+    Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+  #GetDesktopWindow
+    Declare Function GetDesktopWindow Lib "user32" () As Long
+  #EnumChildWindows Use "AddressOf NamedofFunction" for lpEnumFunc e.g. [EnumChildWindows GetDesktopWindow,AddressOf MyFunction, BY Val 0&] [nb MyFunction Declared as MyFunction(ByVal hwnd As Long, ByVal lParam As Long) As Long]
+    Declare Function EnumChildWindows Lib "user32" (ByVal hWndParent As Long, ByVal lpEnumFunc As Long, ByVal lParam As Long) As Long    
+  #Useful APIs
+    GetPixel,SetPixel,GetWindow,FindWindow,GetKeyState,GetWindowRect,GetWindowText,GetWindowTextLength,GetInputState,SetClipboardData,keyb_event,MessageBox,MoveWindow,OpenClipboard,PathFileExists,PostMessage,PrintWindow,PutFocus,WindowFromPoint
   IE Browser Via VBA
   ==================
   #Run Javascript in IE browser [Existing and Injected]
