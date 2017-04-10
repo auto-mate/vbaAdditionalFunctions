@@ -1,5 +1,7 @@
 VB
 ==
+  #Command Line Compile to exe [Go To vbc.exe path then run]
+    vbc.exe /t:exe /debug+ /optionstrict+ /out:\\SomePathandOutFile.exe \\SomePathandInFile.vb
   #Conversions
     Oct Conversion &O10 = 8
     Hex Conversion &H10 = 16
