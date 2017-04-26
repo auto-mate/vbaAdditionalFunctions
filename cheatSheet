@@ -133,7 +133,7 @@ Common Classes
   ================
     InternetExplorer (Turn Off Enable Protected Mode if dissconnection!)
   
-<h1>Javascript</h1>
+Javascript
 ==========
 #Run Javascript that exists in a named frame  
   document.iframeResult.window.myFunction() [runs myFunction from browser console when its in an iframe called "iframeResult"]
