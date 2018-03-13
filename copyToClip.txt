@@ -1,3 +1,5 @@
+﻿'NOTE
+
 Option Compare DatabaseOption ExplicitDeclare Function GlobalUnlock Lib "kernel32" (ByVal hMem As Long) As Long
 Declare Function GlobalLock Lib "kernel32" (ByVal hMem As Long) As Long
 Declare Function GlobalAlloc Lib "kernel32" (ByVal wFlags As Long, ByVal dwBytes As Long) As Long
